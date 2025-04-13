@@ -1,0 +1,117 @@
+canvas {
+    border: 1px solid black;
+    background-color: black;
+}
+
+
+.ContentCalculadoraEGrafico{
+    width: 70%;
+    height: 50%;
+    background-color: rgb(85, 243, 11);
+    position: relative;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    overflow: auto;
+    border: 0.5px solid rgb(21, 255, 0);
+}
+.ContentCalculadoraEGrafico::-webkit-scrollbar{
+    display: none;
+}
+.ContentGrafico{
+    width: 100%;
+    height: 100%;
+    background-color: purple;
+    left: 0%;
+}
+.BoxCalculadora{
+
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    position: relative;
+
+}
+.contentDisplay{
+
+    width: 80%;
+    height: 10%;
+    position: absolute;
+    top: 5%;
+    left: 10%;
+}
+.inputTextoDisplay{
+
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: rgb(26, 26, 26);
+    border: none;
+
+}
+.contentNumbers{
+
+    width: 40%;
+    height: 70%;
+    left: 7.5%;
+    top: 20%;
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+
+}
+.contentSimbolos{
+    width: 40%;
+    height: 70%;
+    left: 52.5%;
+    top: 20%;
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    
+    
+}
+.boxNumber,.boxSimbolos {
+
+    width: 90%;
+    height: 90%;
+    border: 1px solid rgb(12, 12, 12);
+    border-radius: 5px;
+    position: relative;
+    left: 3px;
+    top: 2px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.ButtonNumber{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    
+}
+.ApagarTudoButton{
+    background-image: url("/icons/ApagarTudo.svg");
+    background-size: cover;
+    background-position: center;
+    width: 70%;
+    height: 70%;
+    
+}
+.DeleteButton{
+    background-image: url("/icons/Delete.svg");
+    background-size: cover;
+    background-position: center;
+    width: 70%;
+    height: 70%;
+}

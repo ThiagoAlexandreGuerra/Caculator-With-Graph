@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../Scripts/BehaveCauculator.js" defer></script>
+    <link rel="stylesheet" href="../Styles/lob.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="ContentAll" id="ContentAll">
+        <div class="ContentCaculator" id="ContentCaculator">
+
+            <div class="contentDisplay">
+                <input type="text" class="Input_ContentDiplay" id="Input_ContentDiplay">
+            </div>
+            <div class="ContentNumber" id="ContentNumber" >
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+                <div class="BT" id="BT"></div>
+            </div>
+            <div class="ContentSing" id="ContentSing" >
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+                <div class="BTS" id="BTS"></div>
+            </div>
+            
+        </div>
+        <div class="ContentCanvas" id="ContentCanvas">
+            <div class="ContentConsoleAtvGrafic">
+                <div class="GO" id="GO" ></div>
+            </div>
+            <div class="ContentGraphDisplay">
+                <canvas id="grafico" width="400" height="300"></canvas>
+                <div class="ContentHandleGraph">
+                 <button class="buttonHandleGraph" id="more"></button>
+                 <button class="buttonHandleGraph" id="less"></button>
+                 <button class="buttonHandleGraph_info"></button>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+    <style>
+        .slider-container {
+          height: 200px;
+          width: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 40px;
+          position: absolute;
+          right: 10%;
+        }
+      
+        .vertical-slider {
+          writing-mode: bt-lr; /* bottom to top, left to right */
+          -webkit-appearance: slider-vertical; /* Chrome & Safari */
+          width: 200px;
+          height: 2px;
+          transform: rotate(270deg); /* Para navegadores que não suportam appearance vertical */
+        }
+      
+        /* Estilização extra (opcional) */
+        input[type=range] {
+          -webkit-appearance: none;
+          appearance: none;
+          background: transparent;
+        }
+      /*MUDA A COR ****************************************************/
+        input[type=range]::-webkit-slider-runnable-track {
+          background: #ffffff;
+          background: linear-gradient(143deg, rgba(255, 255, 255, 1) 0%, rgba(163, 163, 163, 1) 18%, rgba(153, 153, 153, 1) 26%, rgba(88, 88, 88, 1) 42%, rgba(212, 212, 212, 1) 55%, rgba(43, 43, 43, 1) 72%, rgba(112, 112, 112, 1) 82%, rgba(0, 0, 0, 1) 100%, rgba(43, 39, 39, 1) 100%);
+          height: 8px;
+          border-radius: 5px;
+        }
+      
+        input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          height: 20px;
+          width: 20px;
+          background: #ffffff;
+          border-radius: 50%;
+          cursor: pointer;
+          margin-top: -6px;
+          box-shadow: 0 0 2px rgba(97, 28, 28, 0.5);
+        }
+      
+        input[type=range]::-moz-range-track {
+          background: #ffffff;
+background: linear-gradient(143deg, rgba(255, 255, 255, 1) 0%, rgba(163, 163, 163, 1) 18%, rgba(153, 153, 153, 1) 26%, rgba(88, 88, 88, 1) 42%, rgba(212, 212, 212, 1) 55%, rgba(43, 43, 43, 1) 72%, rgba(112, 112, 112, 1) 82%, rgba(0, 0, 0, 1) 100%, rgba(43, 39, 39, 1) 100%);
+          height: 8px;
+          border-radius: 5px;
+        }
+      
+        input[type=range]::-moz-range-thumb {
+          height: 20px;
+          width: 20px;
+          background: #007bff;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+      </style>
+      
+      <div class="slider-container">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          class="vertical-slider"
+          id="myRange"
+        />
+      </div>
+      
+    <script src="/CaculatorWithGrafic/Web/Scripts/objetoMoveu.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+C:\Users\thiag\OneDrive\Documentos\Nova pasta\CaculatorWithGrafic\TadInCpp
+
+comand: emcc codigo.c -o codigo.js -sEXPORTED_FUNCTIONS=_dobro -sEXPORTED_RUNTIME_METHODS='["cwrap"]'
+ar -rcs Library/libed.a Object/*.o
+
+emcc -c TadInCpp/Include/OutPutTad.cpp -ITadIncpp/Header   -o TadInCpp/Build/OutPutTad.o
+>> emcc -c TadInCpp/Include/GerPoints.cpp -ITadIncpp/Header   -o TadInCpp/Build/GerPoint.o
+>> emcc -c TadInCpp/Include/FormatFunction.cpp -ITadIncpp/Header   -o TadInCpp/Build/FormatFunction.o
+>> emcc -c TadInCpp/Include/FindNumber.cpp -ITadInCpp/muparser/include  -ITadIncpp/Header  -o TadInCpp/Build/FindNumber.o
+
+ emcc ./TadInCpp/Apps/Main.cpp TadInCpp/Library/libed.a TadInCpp/Library/libmuparser.a -ITadInCpp/Header -Imuparser/include -o WebAssembly/Wasm/MyFunction.js -sEXPORTED_FUNCTIONS='["_points"]' -sEXPORTED_RUNTIME_METHODS='["cwrap"]'

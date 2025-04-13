@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="../Styles/Calculator.css">
+  <link rel="stylesheet" href="../Styles/lob.css">
+
+  <title>WASM Integration</title>
+</head>
+<body>
+  <h1>Testando WebAssembly</h1>
+
+  <script src="../../WebAssembly/Wasm/MyFunction.js"></script> <!-- Isso já define MyModule() globalmente -->
+  <!-- <script>
+    
+    async function init() {
+      const Module = await MyModule(); // Está disponível globalmente, não precisa de import
+
+      try {
+        const points = Module.cwrap("points", "string", ["string"]);
+        const resultado = points(" X ");
+        const json = JSON.parse(resultado);
+        console.log("Tudo certo:", json);
+        CallCanvas(json);
+      } catch (err) {
+        console.error("❌ Erro na função WebAssembly:", err);
+      }
+    }
+    
+
+    init();
+  </script> -->
+  <body style="background-color: rgb(27, 27, 27);">
+    
+    <div class="ContentAll" id="ContentAll">
+      <div class="ContentCaculator" id="ContentCaculator">
+
+          <div class="contentDisplay">
+            <p type="text" class="P_ContentDiplay" id="P_ContentDiplay" contenteditable="true"></p>
+              
+          </div>
+            <div class="ContentNumber" id="ContentNumber" >
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="one" value="1" >1</button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="two" value="2" >2</button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="three" value="3" >3</button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="four" value="4" >4</button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="five" value="5" >5</button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="six" value="6" >6</button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="seven" value="7" >7</button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="eigth" value="8" >8</button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="nine" value="9" >9</button></div>
+              <div class="BTS" id="BTS"><button class="DeleteButton ButtonNumber" id="DeleteButton" value="delete" ></button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber" id="zero" value="0" >0</button></div>
+              <div class="BTS" id="BTS"><button class="ButtonNumber CleanAll" id="CleanAll" value="" ></button></div>
+          </div>
+          
+          <div class="ContentSing" id="ContentSing" >
+              <div class="BT" id="BT"><button class="ButtonNumber" id="mais" value="+">+</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="menos" value="-">-</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="vezes" value="*">x</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="dividir" value="/">&divide;</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber"  id="potencia" value="^">x&sup2;</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="porcentagem" value="%">%</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="abreParenteses" value="(">(</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="fechaParenteses" value=")">)</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="raiz" value="raiz">&radic;</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="pi" value="3.14159265">&pi;</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="log" value="log">log</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="ln" value="ln">ln</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="sen" value="sen">sen</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="cos" value="cos">cos</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="tang" value="tang">tang</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="ponto" value=".">.</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="X" value="X">X</button></div>
+              <div class="BT" id="BT"><button class="ButtonNumber" id="igual" value="=">=</button></div>
+          </div>
+         
+          
+      </div>
+      <div class="ContentCanvas" id="ContentCanvas">
+          <div class="ContentConsoleAtvGrafic">
+              <div class="GO" id="GO" ></div>
+          </div>
+          <div class="ContentGraphDisplay">
+              <h1 class="title_Info">Info:</h1>
+              <p class="text_Info">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia sunt, aperiam molestias sequi quasi illo unde veniam quos repudiandae earum non deserunt possimus similique ipsum consequatur eaque fuga. Omnis, quisquam.</p>
+              <div class="canvas_canvas" id="canvas_canvas">
+                <canvas id="grafico" width="600" height="400"></canvas>
+              </div>
+              <div class="ContentHandleGraph" id="ContentHandleGraph">
+                <button class="buttonHandleGraph" id="more"></button>
+                <button class="buttonHandleGraph" id="less"></button>
+                <button class="buttonHandleGraph_info" id="buttonHandleGraph_info"></button>
+
+              </div>
+          </div>
+      </div>
+
+  </div>
+    <button onclick="cal"></button>
+
+    <script src="/CaculatorWithGrafic/Web/Scripts/GraficCanvas.js"></script>
+    <script src="/CaculatorWithGrafic/Web/Scripts/objetoMoveu.js"></script>
+    <script src="/CaculatorWithGrafic/Web/Scripts/BehaveCauculator.js"></script>
+    <script src="/CaculatorWithGrafic/Web/Scripts/GetBtn.js" type="Module"></script>
+    <script src="/CaculatorWithGrafic/Web/Scripts/lab.js" type="Module"></script>
+
+</body>
+</html>

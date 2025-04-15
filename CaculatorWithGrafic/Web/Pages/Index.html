@@ -79,12 +79,14 @@
           
       </div>
       <div class="ContentCanvas" id="ContentCanvas">
-          <div class="ContentConsoleAtvGrafic">
-              <div class="GO" id="GO" ></div>
+          <div class="ContentConsoleAtvGrafic" id="ContentConsoleAtvGrafic">
+               <div class="ContentConsoleAtvGrafic_Animation" id="ContentConsoleAtvGrafic_Animation"></div>
           </div>
           <div class="ContentGraphDisplay">
-              <h1 class="title_Info">Info:</h1>
-              <p class="text_Info">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia sunt, aperiam molestias sequi quasi illo unde veniam quos repudiandae earum non deserunt possimus similique ipsum consequatur eaque fuga. Omnis, quisquam.</p>
+              <div class="TEXT" id="TEXT">
+                <h1>Info</h1>
+
+              </div>
               <div class="canvas_canvas" id="canvas_canvas">
                 <canvas id="grafico" width="600" height="400"></canvas>
               </div>
@@ -92,7 +94,7 @@
                 <button class="buttonHandleGraph" id="more"></button>
                 <button class="buttonHandleGraph" id="less"></button>
                 <button class="buttonHandleGraph_info" id="buttonHandleGraph_info"></button>
-
+                
               </div>
           </div>
       </div>
@@ -104,7 +106,8 @@
     <script src="/CaculatorWithGrafic/Web/Scripts/objetoMoveu.js"></script>
     <script src="/CaculatorWithGrafic/Web/Scripts/BehaveCauculator.js"></script>
     <script src="/CaculatorWithGrafic/Web/Scripts/GetBtn.js" type="Module"></script>
-    <script src="/CaculatorWithGrafic/Web/Scripts/lab.js" type="Module"></script>
+    <script src="/CaculatorWithGrafic/Web/Scripts/lab.js" type="module"></script>
+    <script src="/CaculatorWithGrafic/Web/Scripts/INFO.js" type="Module"></script>
 
 </body>
 </html>

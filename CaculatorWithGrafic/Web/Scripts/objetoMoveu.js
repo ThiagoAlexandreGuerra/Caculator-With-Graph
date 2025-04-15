@@ -9,16 +9,11 @@ window.addEventListener("mousemove" , (evento)=>{
 
     let rotate= Math.atan2(position_y,position_x)*180/Math.PI
 
-    
-
-   
-
 })
 
 const draggable = document.getElementById('ContentAll');
 let offsetX = 0, offsetY = 0, isDragging = false;
 
-// Quando o mouse é pressionado
 draggable.addEventListener('mousedown', (e) => {
   isDragging = true;
   offsetX = e.clientX - draggable.offsetLeft;
@@ -26,7 +21,6 @@ draggable.addEventListener('mousedown', (e) => {
   draggable.style.cursor = 'grabbing';
 });
 
-// Quando o mouse é movido
 document.addEventListener('mousemove', (e) => {
   if (!isDragging) return;
 
@@ -37,7 +31,6 @@ document.addEventListener('mousemove', (e) => {
   draggable.style.top = `${newY}px`;
 });
 
-// Quando o mouse é solto
 document.addEventListener('mouseup', () => {
   if (isDragging) {
     isDragging = false;

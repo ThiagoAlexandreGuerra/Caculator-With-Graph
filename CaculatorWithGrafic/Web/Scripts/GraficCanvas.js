@@ -2,7 +2,7 @@ const CallCanvas = (JJson) => {
     const ctx = document.getElementById('grafico').getContext('2d');
 
     const grafico = new Chart(ctx, {
-        type: 'scatter',
+        type: 'line',
         data: {
             datasets: [{
                 label: 'Pontos no plano cartesiano',
@@ -10,8 +10,9 @@ const CallCanvas = (JJson) => {
                 backgroundColor: 'red',
                 showLine: true, // Mostra a linha entre os pontos
                 borderColor: 'red',
-                pointRadius: 2,
-                clip: true // Recorta os pontos fora da escala visível
+                pointRadius: 1,
+                clip: true ,// Recorta os pontos fora da escala visível
+                tension: 0.5
             }]
         },
         options: {
@@ -29,8 +30,8 @@ const CallCanvas = (JJson) => {
                 x: {
                     type: 'linear',
                     position: 'bottom',
-                    min: -2,//remember******************************************
-                    max: 2,
+                    min: -10,//remember******************************************
+                    max: 10,
                     title: {
                         display: true,
                         text: 'Eixo das Abcissas (X)'
@@ -43,8 +44,8 @@ const CallCanvas = (JJson) => {
                 },
                 y: {
                     type: 'linear',
-                    min: -2,
-                    max: 2,
+                    min: -10,
+                    max: 10,
                     title: {
                         display: true,
                         text: 'Eixo das Ordenadas (Y)'

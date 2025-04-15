@@ -79,8 +79,8 @@ void GerPoints::LinearFunction(){
     double y=0;
     for(Aux; Aux<1000 ; Aux++){
         
-        LinearFunctionResponse.MyCoordinates[Aux].X=(I/4);
-        y=(I/4)*a + b;
+        LinearFunctionResponse.MyCoordinates[Aux].X=(I);
+        y=(I)*a + b;
         LinearFunctionResponse.MyCoordinates[Aux].Y=y;
         I++;
     }
@@ -113,6 +113,7 @@ void GerPoints::QuadraticFunction(){
     C=QuadraticFunctionResponse.ConstantTerm;
 
     Delta=(pow(B,2))-4*A*C;
+    QuadraticFunctionResponse.Delta=Delta;
 
     if(Delta>0){IfDeltaValid=true;}
 
@@ -139,10 +140,10 @@ void GerPoints::QuadraticFunction(){
     double Range=fabs( ROOT1-ROOT2 );
     int Length=0;
 
-    if((Range>0) && (Range<100) ){Length=1000;}
-    if((Range>=100) && (Range<300) ){Length=1100;}
-    if((Range>=300) && (Range<600) ){Length=1300;}
-    if((Range>=600) && (Range<1000) ){Length=2000;}
+    if((Range>0) && (Range<100) ){Length=5000;}
+    if((Range>=100) && (Range<300) ){Length=5500;}
+    if((Range>=300) && (Range<600) ){Length=6500;}
+    if((Range>=600) && (Range<1000) ){Length=10000;}
     
     QuadraticFunctionResponse.MyCordinates_Length=Length;
 
@@ -151,10 +152,10 @@ void GerPoints::QuadraticFunction(){
     if(ROOT1>ROOT2){swap(ROOT1,ROOT2);}
     
     double X=0;
-    if(Length==1000){X=ROOT1-450;} 
-    if(Length==1100){X=ROOT1-350;} 
-    if(Length==1300){X=ROOT1-480;} 
-    if(Length==2000){X=ROOT1-750;} 
+    if(Length==5000){X=ROOT1-1050;} 
+    if(Length==5500){X=ROOT1-1350;} 
+    if(Length==6500){X=ROOT1-1480;} 
+    if(Length==10000){X=ROOT1-1750;} 
     
     double Y=0;
 
@@ -163,9 +164,10 @@ void GerPoints::QuadraticFunction(){
         QuadraticFunctionResponse.MyCoordinates[i].X=X;
         QuadraticFunctionResponse.MyCoordinates[i].Y=Y;
         if(Y==0){cout<<"****************************************************************************"<<endl<<endl;}
-        X++;
+        X=X+0.225;
     }
-
+    
+     
     cout<<"QuadraticFunctionResponse.slope__________: "<<QuadraticFunctionResponse.slope<<endl;
     cout<<"QuadraticFunctionResponse.B_Coefficient__: " <<QuadraticFunctionResponse.B_Coefficient<<endl;
     cout<<"QuadraticFunctionResponse.ConstantTerm___: "<<QuadraticFunctionResponse.ConstantTerm<<endl;

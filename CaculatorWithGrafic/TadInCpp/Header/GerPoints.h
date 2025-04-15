@@ -1,6 +1,6 @@
 #ifndef GERPOINTS_H
 #define GERPOINTS_H
-
+#include <string>
 #include "FormatFunction.h"
 typedef struct{
 
@@ -19,7 +19,7 @@ typedef struct
 
     double ConstantTerm;
     double slope;
-
+    double Delta;
     double FirstRoot;
     double SecondRoot;
     double ThirdRoot;
@@ -29,6 +29,7 @@ typedef struct
     bool FindFirstRoot;
     bool FindSecondRoot;
     bool FindThirdRoot;
+    bool FindConstanteTerm;
 
 }GerPoints_result;
 

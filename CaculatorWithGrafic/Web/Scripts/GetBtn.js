@@ -173,7 +173,7 @@ contentNumbers.addEventListener("click", (evento)=>{
                         {log:/l\w*g/gi},
                         {ln:/l\w*n/gi},
                         {inv:/i\w*v/gi},
-                        {deg:/d\w*g/ig}
+                        {deg:/t\w*g/ig}
                     ]
                     
                     for(let i = 0 ; i<variable_regex.length ; ++i){
@@ -238,16 +238,16 @@ contentSimbolos.addEventListener("click",(evento)=>{
         const string_mathematical_operation_desired_by_the_user=input_e_display.innerHTML
         //const result_of_the_operation= eval(string_mathematical_operation_desired_by_the_user)
         CallPoint(string_mathematical_operation_desired_by_the_user);
-        input_e_display.innerHTML=result_of_the_operation
+        // input_e_display.innerHTML=result_of_the_operation
         console.log(string_mathematical_operation_desired_by_the_user)
 
     }
 
-    if((evento.target.value != undefined) && (symbol_operating == true && ( evento.target.value != "=")) ){
+    if((evento.target.value != undefined) && ( evento.target.value != "=")){
 
         numbers_input_for_user += evento.target.value
         input_e_display.innerHTML= numbers_input_for_user
-        symbol_operating= false
+        
 
         if((evento.target.value == "cos") || (evento.target.value == "sen") || (evento.target.value == "ln") ||
             (evento.target.value =="log") || (evento.target.value == "INV") || (evento.target.value =="deg") ||

@@ -1,18 +1,32 @@
 #include <iostream>
-#include <string>                        // <- necessário para std::string
-#include <emscripten/emscripten.h>       // <- necessário para EMSCRIPTEN_KEEPALIVE
+#include <string>                        
+#include <emscripten/emscripten.h>      
 
+#include "ToCheckString.h"
 #include "OutPutTad.h"
+#include "OnlyExpression.h"
+
 using namespace std;
 
 extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* points(const char* expr) {
-        static std::string result;  // Static para evitar que a string seja destruída ao sair da função
+        static std::string result;  
         OutPutTad Test;
-        result = Test.Get(expr);
+        ToCheckString check;
+        RESULT_TochekString data;
+        OnlyExpression OnEx;
 
-        return result.c_str();  // Retorna ponteiro para o buffer interno da string
+        static std::string OnlyExpr;
+        static std::string aux;
+        data= check.Get(expr);
+
+        if(!data.FindErro){
+            if(data.is_Function){result = Test.Get(expr); return result.c_str();}
+            if(data.is_Expression){OnlyExpr= OnEx.Get(expr); return OnlyExpr.c_str();}
+        }
+        aux=data.ERROS;
+        return aux.c_str();
     }
 }
 

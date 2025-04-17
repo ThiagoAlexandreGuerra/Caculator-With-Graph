@@ -59,9 +59,9 @@ void FindNumber::SplitStringFromUser() {
 
     for(int i=0 ; i<Operation.size() ; i++){
         if(isdigit(Operation[i])){findDigit=true;}
-        if(findDigit && (Operation[i]=='^')){Operation[i]=' ';}
+       // if(findDigit && (Operation[i]=='^')){Operation[i]=' ';}
         if(isalpha(Operation[i])){Operation[i]=' ';}
-        if((Operation[i]=='+'||Operation[i]=='-') && !verification){positioLonelySing=i;verification=true;i++;}
+        if((Operation[i]=='+'||Operation[i]=='-'||Operation[i]=='*') && !verification){positioLonelySing=i;verification=true;i++;}
         if(isdigit(Operation[i])){verification=false;positioLonelySing=-1;}
         if(verification && (i==Operation.size()-1)){Operation[positioLonelySing]=' ';}
     }
@@ -83,14 +83,12 @@ double FindNumber::RealiseTheOperations() {
             double resultado = parser.Eval();
             return resultado;
         } catch (mu::Parser::exception_type &e) {
-            // Loga no stderr e retorna um valor especial
             std::cerr << "Erro muParser: " << e.GetMsg() << std::endl;
-            // Retorne um valor claro que possa ser tratado no JavaScript
             return std::nan("1");
         }
     }
 
-    return 0 ; // Ou outro valor para "operação inválida"
+    return 0 ; 
 }
 
 

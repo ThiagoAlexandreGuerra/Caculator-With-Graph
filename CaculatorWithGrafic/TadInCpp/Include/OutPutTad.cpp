@@ -48,7 +48,8 @@ string OutPutTad::LinearFunction_Delivery() {
 
     oss << "\t],\n";
     oss << "\t\"Root\": [\n\t\t{ \"x\": " << DeliveryFunctionResults.FirstRoot << ", \"y\": 0 }\n\t],\n";
-    oss << "\t\"TYPE\": [\n\t\t{ \"T\": " << 1 << " }\n\t],\n";
+    oss << "\t\"TYPE_Function\": [\n\t\t{ \"T\": " << 1 << " }\n\t],\n";
+    oss << "\t\"TYPE\": [\n\t\t{ \"T\": \"Function\" }\n\t],\n";
     oss << "\t\"FindConstanteTerm\": [\n\t\t{ \"if\": " << DeliveryFunctionResults.FindConstanteTerm << " }\n\t],\n";
     oss << "\t\"FindFirstRoot\": [\n\t\t{ \"if\": " << DeliveryFunctionResults.FindFirstRoot << " }\n\t],\n";
     oss << "\t\"Slope\": [\n\t\t{ \"a\": " << DeliveryFunctionResults.slope << " }\n\t],\n";

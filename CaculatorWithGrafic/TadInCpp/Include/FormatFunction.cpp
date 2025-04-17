@@ -62,7 +62,7 @@ void FormatFunction::SetXIn_FirstIndentied(){
     Result expoent;
     Result auxGet;
     Return_FindUpperLimit RFUL;
-    int aux=0;
+    int aux=0 , k=0;
     cout<<endl<<endl<<"SetXIn_FirstIndentied________________________________________________:"<<endl;
     for(int i=0 ; i<FF_stringFromUser.size() ; i++){
 
@@ -99,6 +99,8 @@ void FormatFunction::SetXIn_FirstIndentied(){
             FirstIndentied[aux].X_Position=i;
             aux++;
         }
+        
+        
     }
     cout<<"_____________________________________________________________________|"<<endl;
 }
@@ -115,6 +117,7 @@ int FormatFunction::FindLowerLimit(int currentIndex){
 
     return 0;
 };
+
 Return_FindUpperLimit FormatFunction::FindUpperLimit(int currentIndex){
 
     int i=currentIndex;
@@ -152,6 +155,45 @@ Return_FindUpperLimit FormatFunction::FindUpperLimit(int currentIndex){
     return returnn;
 
 };
+
+// int FormatFunction::ifNextIsXToo(int currentIndex , int currentAux){
+
+//     bool  findX=false;
+//     FindNumber GetValue;
+//     Result fator;
+//     Result expoent;
+//     Result auxGet;
+//     Return_FindUpperLimit RFUL;
+
+//     int cont_x=0 ,k=0;
+//     for(k=currentIndex ; k<FF_stringFromUser.size() ; k++ ){
+//             if(((isdigit(FF_stringFromUser[k]))||(FF_stringFromUser[k]=='+')||(FF_stringFromUser[k]=='-'))&& (!findX)){
+//                 return currentIndex;
+//             }
+//             if((isalpha(FF_stringFromUser[k]))){
+//                 findX=true;
+//                 cont_x++;
+//                 RFUL=FindUpperLimit(k);
+//                 if(RFUL.IfsingExponetiation){   
+//                     if(RFUL.value>RFUL.NewIndex){swap( RFUL.value ,RFUL.NewIndex );}
+//                     expoent= GetValue.Get(FF_stringFromUser, RFUL.value, RFUL.NewIndex);
+//                     expoent.VALUE==0?expoent.VALUE=1:expoent.VALUE;
+//                 }else{
+                    
+//                     auxGet=GetValue.Get(FF_stringFromUser,(k),RFUL.value);
+//                     if(auxGet.isZero){auxGet.VALUE=0;}else{auxGet.VALUE==0?1:auxGet.VALUE;}
+//                     fator.VALUE= (auxGet.VALUE==0?1:auxGet.VALUE) * fator.VALUE;
+//                     expoent.VALUE=1;
+//                 }
+                
+//                     FirstIndentied[currentAux].X_Factor*=fator.VALUE;
+//                     FirstIndentied[currentAux].X_Expoent+=cont_x;
+//                     cont_x=0;
+//             }
+//     }
+
+//     return k;
+// }
 
 X_Type* FormatFunction::UserFunction(){
 

@@ -16,7 +16,6 @@ ToCheckString::ToCheckString(){
     RESULT.FindErro=false;
     RESULT.RigthString="";
 };
-ToCheckString::~ToCheckString(){};
 RESULT_TochekString ToCheckString::Get(string string_from_user){
     return Leanding(string_from_user);
 };
@@ -136,3 +135,4 @@ void ToCheckString::StraightenTheString(){
     }
 }; 
 
+ToCheckString::~ToCheckString(){};

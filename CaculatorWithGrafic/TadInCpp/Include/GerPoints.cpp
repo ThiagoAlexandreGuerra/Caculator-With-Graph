@@ -42,7 +42,7 @@ GerPoints_result GerPoints::Lending(string S){
 
     if(HowIsTheTypeOfFunction==1){LinearFunction(); return LinearFunctionResponse;}
     if(HowIsTheTypeOfFunction==2){QuadraticFunction(); return QuadraticFunctionResponse;}
-    if(HowIsTheTypeOfFunction==3){CubicFunction(); return CubicFunctionResponse;}
+    if(HowIsTheTypeOfFunction==3){CubicFunction();cout<<"| GerPoint send!!!!!!!!!!!"<<endl; return CubicFunctionResponse;}
 
 } 
 
@@ -55,7 +55,7 @@ void GerPoints::DefineFunctionType(){
 }
 
 void GerPoints::LinearFunction(){
-
+    FindDerivative(LinearFunctionResponse);
     LinearFunctionResponse.TypeOfFunction=1;
 
     LinearFunctionResponse.slope=FunctionFromUser[0].X_Factor;
@@ -89,15 +89,11 @@ void GerPoints::LinearFunction(){
     cout<<endl<<" LinearFunctionResponse.ConstantTerm__:"<< LinearFunctionResponse.ConstantTerm<<endl;
     cout<<endl<<" LinearFunctionResponse.FirstRoot_____:"<< LinearFunctionResponse.FirstRoot<<endl;
     
-    // for(int K=0; K<1000 ; K++){
-    //     cout<<"("<<LinearFunctionResponse.MyCoordinates[K].x<<";"<<LinearFunctionResponse.MyCoordinates[K].y<<") " <<K<<" ";
-    //     if(I%50==0){cout<<endl;}
-    // }
     
 }
 
 void GerPoints::QuadraticFunction(){
-    
+    FindDerivative(QuadraticFunctionResponse);
     QuadraticFunctionResponse.TypeOfFunction=2;
 
 
@@ -177,14 +173,12 @@ void GerPoints::QuadraticFunction(){
     cout<<"QuadraticFunctionResponse.Vertex.x_______: "<<QuadraticFunctionResponse.Vertex.X<<endl;
     cout<<"QuadraticFunctionResponse.Vertex.y_______: "<<QuadraticFunctionResponse.Vertex.Y<<endl;
 
-    // for(int K=0; K<1000 ; K++){
-    //     cout<<"("<<QuadraticFunctionResponse.MyCoordinates[K].x<<";"<<QuadraticFunctionResponse.MyCoordinates[K].y<<") ";
-    //     if(K%50==0){cout<<endl;}
-    // }
+   
 }
 
 void GerPoints::CubicFunction(){
-
+    cout<<"CubicFunction_______________________________:"<<endl;
+    FindDerivative(CubicFunctionResponse);
     CubicFunctionResponse.TypeOfFunction=3;
 
     double A=0 , B=0 , C=0, D=0;
@@ -194,71 +188,124 @@ void GerPoints::CubicFunction(){
     C=FunctionFromUser[0].X_Factor;
     D=FunctionFromUser[3].X_Factor;
     FuncDivisorOfX(D);
+    CubicFunctionResponse.slope=A;
+    CubicFunctionResponse.B_Coefficient=B;
+    CubicFunctionResponse.C_Coefficient=C;
+    CubicFunctionResponse.ConstantTerm=D;
 
-    double Y=0 , firstTerm=0 , SecondTerm=0 , ThirdTerm=0;
-
-    firstTerm=A*(pow(3,3));
-    ThirdTerm=C*3;
-    SecondTerm=B*(pow(3,2));
-
-    Y=firstTerm + SecondTerm + ThirdTerm + D;
-    cout<<"firstTerm__: "<<firstTerm<<endl;
-    cout<<"SecondTerm_: "<<SecondTerm<<endl;
-    cout<<"ThirdTerm__: "<<ThirdTerm<<endl;
-    if(Y==0){
-        CubicFunctionResponse.FindFirstRoot=true;
-        CubicFunctionResponse.FirstRoot=3;
-    }
-    cout<<endl<<"Y: "<<Y;
-
-    firstTerm=A*(pow(-3,3));
-    ThirdTerm=C*(-3);
-    SecondTerm=B*(pow(-3,2));
-
-    Y=A*(pow(-3,3)) + B*(pow(-3,2)) + C*(-3) + D;
-    if(Y==0){
-        if(!CubicFunctionResponse.FindFirstRoot){
-            CubicFunctionResponse.FindSecondRoot=true;
-            CubicFunctionResponse.SecondRoot=-3;
-        }else{
-            CubicFunctionResponse.FindFirstRoot=true;
-            CubicFunctionResponse.FirstRoot=-3;
-        }
-    }
-    cout<<"firstTerm__: "<<firstTerm<<endl;
-    cout<<"SecondTerm_: "<<SecondTerm<<endl;
-    cout<<"ThirdTerm__: "<<ThirdTerm<<endl;
-    cout<<endl<<"Y: "<<Y;
-    
-
+    double Y=0 ;
     int X=0;
-    for(int i=0; i<DivisorOfConstantTerm_Size; i++ ){
-        X=DivisorOfConstantTerm[i];
-        Y=A*(pow(X,3)) + B*(pow(X,2)) + C*(X) + D;
-        cout<<endl<<"Y: "<<Y;
-        cout<<endl<<"X: "<<X<<endl;
-        firstTerm=A*(pow(X,3));
-        ThirdTerm=C*(X);
-        SecondTerm=B*(pow(X,2));
-        cout<<"firstTerm__: "<<firstTerm<<endl;
-        cout<<"SecondTerm_: "<<SecondTerm<<endl;
-        cout<<"ThirdTerm__: "<<ThirdTerm<<endl;
+    bool first_Arrey=true;
+    int if_root[5]={1,-1,3,-3};
+    for(int i=0;i<DivisorOfConstantTerm_Size ; i++){ 
+        if(first_Arrey){
+            X=if_root[i];
+            if(i==3){first_Arrey=false;i=0;}
+        }else{
+            X=DivisorOfConstantTerm[i];
+        }
 
+        Y= (A*(pow(X,3))) + B*(pow(X,2)) + (C*X) + D;
 
         if(Y==0){
-            if(!CubicFunctionResponse.FindFirstRoot){
-                CubicFunctionResponse.FindFirstRoot=true;
+           if(!CubicFunctionResponse.FindFirstRoot){
                 CubicFunctionResponse.FirstRoot=X;
-            }else if(!CubicFunctionResponse.FindSecondRoot){
-                CubicFunctionResponse.FindSecondRoot=true;
+                CubicFunctionResponse.FindFirstRoot=true;
+           }else if(!CubicFunctionResponse.FindSecondRoot){
                 CubicFunctionResponse.SecondRoot=X;
-            }else if(!CubicFunctionResponse.FindThirdRoot){
-                CubicFunctionResponse.FindThirdRoot=true;
+                CubicFunctionResponse.FindSecondRoot=true;
+           }else if(!CubicFunctionResponse.FindThirdRoot){
                 CubicFunctionResponse.ThirdRoot=X;
-            }
+                CubicFunctionResponse.FindThirdRoot=true;
+           }
+           
         }
     }
+    cout<<"| CubicFunctionResponse.FirstRoot: "<<CubicFunctionResponse.FirstRoot<<endl;
+    cout<<"| CubicFunctionResponse.SecondRoot: "<<CubicFunctionResponse.SecondRoot<<endl;
+    cout<<"| CubicFunctionResponse.ThirdRootRoot: "<<CubicFunctionResponse.ThirdRoot<<endl;
+    cout<<"| CubicFunctionResponse.FindFirstRoot: "<<CubicFunctionResponse.FindFirstRoot<<endl;
+    cout<<"| CubicFunctionResponse.FindSecondRoot: "<<CubicFunctionResponse.FindSecondRoot<<endl;
+    cout<<"| CubicFunctionResponse.FindThirdRoot: "<<CubicFunctionResponse.FindThirdRoot<<endl;
 
+    if(CubicFunctionResponse.FindFirstRoot && CubicFunctionResponse.FindSecondRoot && CubicFunctionResponse.FindThirdRoot){CubicFunctionFor_THREE_Root(A,B,C,D);
+    }else if(CubicFunctionResponse.FindFirstRoot && CubicFunctionResponse.FindSecondRoot){CubicFunctionFor_TWO_Root(A,B,C,D);
+    }else if(CubicFunctionResponse.FindFirstRoot){CubicFunctionFor_ONE_Root(A,B,C,D);
+    }else{
+        cout<<"Your function no have root in reais.!!!"<<endl;
+    }
+    
+    
+    // corrigir esse cenario depois
+}
+
+void GerPoints::CubicFunctionFor_ONE_Root(double A , double B, double C, double D){
+    double ROOT_1=0;
+
+    ROOT_1= CubicFunctionResponse.FirstRoot;
+
+    int Length=6000;
+
+    CubicFunctionResponse.MyCordinates_Length=Length;
+    CubicFunctionResponse.MyCoordinates=new Coordinates[Length]();
+
+    double XX=ROOT_1 - 2999, Y=0;
+
+    for(int i=0 ; i<Length ; i++){
+        Y=A*(pow((XX/10),3)) + B*(pow((XX/10),2)) + C*(XX/10) + D;
+        CubicFunctionResponse.MyCoordinates[i].X=XX;
+        CubicFunctionResponse.MyCoordinates[i].Y=Y;
+        XX+=0.255;
+    }
+
+    cout<<endl<<"A______________________________: "<<A;
+    cout<<endl<<"B______________________________: "<<B;
+    cout<<endl<<"C______________________________: "<<C;
+    cout<<endl<<"D______________________________: "<<D;
+    cout<<endl<<"CubicFunctionResponse.FirstRoot: "<<ROOT_1<<endl;
+    cout<<endl<<"Length_________________________: "<<Length<<endl;
+
+};
+void GerPoints::CubicFunctionFor_TWO_Root(double A , double B, double C, double D){
+    double ROOT_1=0, ROOT_2=0;
+
+    ROOT_1= CubicFunctionResponse.FirstRoot;
+    ROOT_2= CubicFunctionResponse.SecondRoot;
+
+    if(ROOT_1>ROOT_2){
+        swap(ROOT_1,ROOT_2);
+    }
+
+    double Range_1=0;
+    
+    Range_1=fabs(ROOT_1-ROOT_2);
+
+    int Length= floor(Range_1) + 6000;
+
+    CubicFunctionResponse.MyCordinates_Length=Length;
+
+    CubicFunctionResponse.MyCoordinates=new Coordinates[Length]();
+
+    double XX=ROOT_1 - 499, Y=0;
+    
+    for(int i=0 ; i<Length ; i++){
+        Y=A*(pow((XX/10),3)) + B*(pow((XX/10),2)) + C*(XX/10) + D;
+        CubicFunctionResponse.MyCoordinates[i].X=XX;
+        CubicFunctionResponse.MyCoordinates[i].Y=Y;
+        XX+=0.255;
+    }
+
+    cout<<endl<<"A______________________________: "<<A;
+    cout<<endl<<"B______________________________: "<<B;
+    cout<<endl<<"C______________________________: "<<C;
+    cout<<endl<<"D______________________________: "<<D;
+    cout<<endl<<"CubicFunctionResponse.FirstRoot: "<<ROOT_1<<endl;
+    cout<<endl<<"CubicFunctionResponse.SecondRoot: "<<ROOT_2<<endl;
+    cout<<endl<<"Length_________________________: "<<Length<<endl;
+};
+void GerPoints::CubicFunctionFor_THREE_Root(double A , double B, double C, double D){
+
+    
     double ROOT_1=0, ROOT_2=0 , ROOT_3=0;
 
     ROOT_1= CubicFunctionResponse.FirstRoot;
@@ -282,14 +329,14 @@ void GerPoints::CubicFunction(){
     Range_1=fabs(ROOT_1-ROOT_2);
     Range_2=fabs(ROOT_2-ROOT_3);
 
-    int Length= floor(Range_1) + floor(Range_2) + 1000;
+    int Length= floor(Range_1) + floor(Range_2) + 6000;
 
     CubicFunctionResponse.MyCordinates_Length=Length;
 
     CubicFunctionResponse.MyCoordinates=new Coordinates[Length]();
 
-    double XX=Range_1 - 499;
-
+    double XX=ROOT_1 - 499, Y=0;
+    
     for(int i=0 ; i<Length ; i++){
         Y=A*(pow((XX/10),3)) + B*(pow((XX/10),2)) + C*(XX/10) + D;
         CubicFunctionResponse.MyCoordinates[i].X=XX;
@@ -306,13 +353,47 @@ void GerPoints::CubicFunction(){
     cout<<endl<<"CubicFunctionResponse.ThirdRoot: "<<ROOT_3<<endl;
     cout<<endl<<"Length_________________________: "<<Length<<endl;
 
-    // for(int K=0; K<1000 ; K++){
-    //     cout<<"("<<CubicFunctionResponse.MyCoordinates[K].x<<";"<<CubicFunctionResponse.MyCoordinates[K].y<<") ";
-    //     if(K%50==0){cout<<endl;}
-    //     if(CubicFunctionResponse.MyCoordinates[K].y==0){cout<<endl<<endl<<endl;}
+};
 
-    // }
-}
+void GerPoints::FindDerivative(GerPoints_result& whatIsTheFunction){
+    cout<<"GerPoints FindDerivative_______________________________________________: "<<endl;
+    int aux=HowIsTheTypeOfFunction-1;
+
+    int length=(2*HowIsTheTypeOfFunction)-1;
+    
+    whatIsTheFunction.Derivatives=new X_Type[length]();
+    
+    if(whatIsTheFunction.Derivatives!=NULL){
+
+        for(int i=0; i<length ; i++){
+            if(i<HowIsTheTypeOfFunction){
+                whatIsTheFunction.Derivatives[i].X_Factor = FunctionFromUser[i].X_Factor*FunctionFromUser[i].X_Expoent;
+                whatIsTheFunction.Derivatives[i].X_Expoent = FunctionFromUser[i].X_Expoent-1;
+                cout<<"| in for,  FunctionFromUser["<<i<<"].X_Factor :"<<FunctionFromUser[i].X_Factor<<endl;
+                cout<<"| in for,  FunctionFromUser["<<i<<"].X_Expoent :"<<FunctionFromUser[i].X_Expoent<<endl;
+                cout<<"| in for, whatIsTheFunction.Derivatives["<<i<<"].X_Factor :"<<whatIsTheFunction.Derivatives[i].X_Factor<<endl;
+                cout<<"| in for, whatIsTheFunction.Derivatives["<<i<<"].X_Expoent :"<<whatIsTheFunction.Derivatives[i].X_Expoent<<endl;
+                cout<<"|"<<endl;
+
+            }else{
+                whatIsTheFunction.Derivatives[i].X_Factor = whatIsTheFunction.Derivatives[aux].X_Factor*whatIsTheFunction.Derivatives[aux].X_Expoent;
+                whatIsTheFunction.Derivatives[i].X_Expoent = whatIsTheFunction.Derivatives[aux].X_Expoent-1;
+                cout<<"| in for,  whatIsTheFunction.Derivatives["<<aux<<"].X_Factor :"<<whatIsTheFunction.Derivatives[aux].X_Factor<<endl;
+                cout<<"| in for, whatIsTheFunction.Derivatives["<<aux<<"].X_Expoent :"<<whatIsTheFunction.Derivatives[aux].X_Expoent<<endl;
+                cout<<"| in for, whatIsTheFunction.Derivatives["<<i<<"].X_Factor :"<<whatIsTheFunction.Derivatives[i].X_Factor<<endl;
+                cout<<"| in for, whatIsTheFunction.Derivatives["<<i<<"].X_Expoent :"<<whatIsTheFunction.Derivatives[i].X_Expoent<<endl;
+                cout<<"|"<<endl;
+
+                
+                aux--;
+            }
+        }
+        whatIsTheFunction.IfVector_Derivative_Allocated=true;
+    }else{
+        whatIsTheFunction.IfVector_Derivative_Allocated=false;
+    }
+    cout<<"_______________________________________________________________________||"<<endl;
+};
 
 void GerPoints::FuncDivisorOfX(float Number) {
     if (Number < 1) {Number*(-1);} 
@@ -353,5 +434,6 @@ void GerPoints::FuncDivisorOfX(float Number) {
 
 GerPoints::~GerPoints(){
 
-    delete []FunctionFromUser;
+    delete [] DivisorOfConstantTerm;
+    delete [] FunctionFromUser;
 }

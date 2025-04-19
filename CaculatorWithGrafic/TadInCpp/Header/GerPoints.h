@@ -13,31 +13,39 @@ typedef struct
 {
     Coordinates *MyCoordinates;
     Coordinates Vertex;
+    Coordinates *InflectionPoint;
+    Coordinates *CriticalPoint;
 
+    X_Type *Derivatives;
+   
     int TypeOfFunction;
     int MyCordinates_Length;
 
-    double ConstantTerm;
-    double slope;
     double Delta;
     double FirstRoot;
     double SecondRoot;
     double ThirdRoot;
+    double slope;
     double B_Coefficient;
     double C_Coefficient;
+    double ConstantTerm;
+    
 
     bool FindFirstRoot;
     bool FindSecondRoot;
     bool FindThirdRoot;
     bool FindConstanteTerm;
-
+    bool IfVector_InflectionPoint_Allocated;
+    bool IfVector_CriticalPoint_Allocated;
+    bool IfVector_Derivative_Allocated;
+   
 }GerPoints_result;
 
 class GerPoints{
 
     private:
 
-        X_Type *FunctionFromUser;
+        X_Type *FunctionFromUser=nullptr;
 
         int HowIsTheTypeOfFunction;
         int DivisorOfConstantTerm_Size;
@@ -50,7 +58,11 @@ class GerPoints{
         void LinearFunction();
         void QuadraticFunction();
         void CubicFunction();
+        void CubicFunctionFor_ONE_Root(double A , double B, double C, double D);
+        void CubicFunctionFor_TWO_Root(double A , double B, double C, double D);
+        void CubicFunctionFor_THREE_Root(double A , double B, double C, double D);
         void FuncDivisorOfX(float Number);
+        void FindDerivative(GerPoints_result& howIsFunction);
 
     public:
         GerPoints_result Get(string S);

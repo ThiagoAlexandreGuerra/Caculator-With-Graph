@@ -4,13 +4,7 @@
 
 #include "FindNumber.h"
 #include "OnlyExpression.h"
-OnlyExpression::OnlyExpression(/* args */)
-{
-}
-
-OnlyExpression::~OnlyExpression()
-{
-}
+OnlyExpression::OnlyExpression(){}
 
 string OnlyExpression::Get(string S){
     return Leading(S);
@@ -38,3 +32,4 @@ string OnlyExpression::FormatString(string S){
     return oss.str();
 };
 
+OnlyExpression::~OnlyExpression(){}

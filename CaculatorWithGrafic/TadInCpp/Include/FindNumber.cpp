@@ -26,11 +26,11 @@ Result FindNumber::Leading(string OperationFromUser, int LowerLimit , int UperLi
     FindNumber_stringFromUser = OperationFromUser;
     FindNumber_LowerLimit = LowerLimit;
     FindNumber_UperLimit = UperLimit;
-
+    cout<<"FindNumber Leading_____________________________________________________:"<<endl;
+    cout<<"| call SplitStringFromUser --->"<<endl;
     SplitStringFromUser();
     RESULT.VALUE = RealiseTheOperations();
-    
-    cout<<endl<<endl<<"RESULT.VALUE: "<<RESULT.VALUE<<endl;
+    cout<<endl<<endl<<"| RESULT.VALUE: "<<RESULT.VALUE<<endl;
     cout<<"| RESULT.isZero : "<<RESULT.isZero<<endl;
 
     return RESULT;
@@ -59,18 +59,19 @@ void FindNumber::SplitStringFromUser() {
 
     for(int i=0 ; i<Operation.size() ; i++){
         if(isdigit(Operation[i])){findDigit=true;}
-       // if(findDigit && (Operation[i]=='^')){Operation[i]=' ';}
         if(isalpha(Operation[i])){Operation[i]=' ';}
         if((Operation[i]=='+'||Operation[i]=='-'||Operation[i]=='*') && !verification){positioLonelySing=i;verification=true;i++;}
         if(isdigit(Operation[i])){verification=false;positioLonelySing=-1;}
         if(verification && (i==Operation.size()-1)){Operation[positioLonelySing]=' ';}
+        if(Operation[i]=='/' && !findDigit){Operation[i]=' ';}
     }
 
     for(int i=0 ; i<Operation.size();i++){
         if(isdigit(Operation[i]) && Operation[i]!='0'){RESULT.isZero=false;}
     }
     if(FindNumber_LowerLimit==FindNumber_UperLimit){RESULT.isZero=false;}
-
+    if(!IfDigit(Operation)){RESULT.isZero=false;}
+    
     cout<<"| Operation: "<<Operation<<endl;
     cout<<"|__________________________________________________________|"<<endl<<endl;
 }

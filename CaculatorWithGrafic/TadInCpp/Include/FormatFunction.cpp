@@ -11,10 +11,7 @@ FormatFunction::FormatFunction(/* args */)
     Amount_of_X=0;
 }
 
-FormatFunction::~FormatFunction()
-{
-    delete [] My_Function;
-}
+
 
 X_Type* FormatFunction::Get(string OperationFromUser){
    return Lending(OperationFromUser);
@@ -97,9 +94,10 @@ void FormatFunction::SetXIn_FirstIndentied(){
             FirstIndentied[aux].X_Factor=fator.VALUE;
             FirstIndentied[aux].X_Expoent=expoent.VALUE;
             FirstIndentied[aux].X_Position=i;
+            cout<<"| FF_stringFromUser.size()>1: "<<(FF_stringFromUser.size()>1)<<endl;
+            if(FF_stringFromUser.size()>2){i=ifNextIsXToo(i,aux);}
             aux++;
         }
-        
         
     }
     cout<<"_____________________________________________________________________|"<<endl;
@@ -110,7 +108,8 @@ int FormatFunction::FindLowerLimit(int currentIndex){
     int i=currentIndex;
 
     for(i; i!= 0 ; i-- ){
-        if(FF_stringFromUser[i]=='+' || FF_stringFromUser[i]=='-'){
+        if(FF_stringFromUser[i]=='+' || FF_stringFromUser[i]=='-' || FF_stringFromUser[i]=='/'){
+            if(FF_stringFromUser[i]=='/'){return i++;}
             return i;
         }
     }
@@ -121,9 +120,11 @@ int FormatFunction::FindLowerLimit(int currentIndex){
 Return_FindUpperLimit FormatFunction::FindUpperLimit(int currentIndex){
 
     int i=currentIndex;
-    bool findSing_exponentiationFirstTime=true;
+    bool findSing_exponentiationFirstTime=true , find_DivisionByX=false;
     Return_FindUpperLimit returnn;
+    if(FF_stringFromUser[i]=='X'){i++;}
     cout<<"FindUpperLimit************************:"<<endl;
+
     for(i; i< FF_stringFromUser.size() ; i++ ){
 
         if(FF_stringFromUser[i] =='^' && findSing_exponentiationFirstTime){
@@ -137,9 +138,12 @@ Return_FindUpperLimit FormatFunction::FindUpperLimit(int currentIndex){
 
             findSing_exponentiationFirstTime=false;
         }
-        if(FF_stringFromUser[i]=='+' || FF_stringFromUser[i]=='-' || (i==FF_stringFromUser.size()-1)){
+        if(FF_stringFromUser[i]=='/'){
+            for(int k=i; k<FF_stringFromUser.size(); k++){ if(isalpha(FF_stringFromUser[k])){find_DivisionByX=true; i--;break;}}
+        }
+        if(FF_stringFromUser[i]=='+' || FF_stringFromUser[i]=='-' || (i==FF_stringFromUser.size()-1)||(isalpha(FF_stringFromUser[i])) || (find_DivisionByX)){
             returnn.value=i;
-        
+            
 
             cout<<"| returnn.value: "<<returnn.value<<endl;
             cout<<"| i: "<<i<<endl;
@@ -156,44 +160,87 @@ Return_FindUpperLimit FormatFunction::FindUpperLimit(int currentIndex){
 
 };
 
-// int FormatFunction::ifNextIsXToo(int currentIndex , int currentAux){
+int FormatFunction::ifNextIsXToo(int currentIndex , int currentAux){
+    cout<<"| FF_stringFromUser.size(): "<<FF_stringFromUser.size()<<endl;
+    if(currentIndex+1>=FF_stringFromUser.size()){ cout<<"| No pass!!!!!!!!!!!"<<endl;return currentIndex;}
+    
+    if((FF_stringFromUser[currentIndex]=='X') && (currentIndex+1<FF_stringFromUser.size())){currentIndex++;}else{return currentIndex;}
 
-//     bool  findX=false;
-//     FindNumber GetValue;
-//     Result fator;
-//     Result expoent;
-//     Result auxGet;
-//     Return_FindUpperLimit RFUL;
+    cout<<"TadInCpp FormatFunction ifNextIsXToo___: "<<endl;
+    cout<<"| FF_stringFromUser["<<currentIndex<<"]: "<<FF_stringFromUser[currentIndex]<<endl;
+    cout<<"| FF_stringFromUser.size(): "<<FF_stringFromUser.size()<<endl;
+    cout<<"| currentIndex: "<<currentIndex<<endl;
+    cout<<"| currentAux: "<<currentAux<<endl;
+    bool  findX=false , firstTime=true , find_Division=false;
+    FindNumber GetValue;
+    Result fator;
+    Result expoent;
+    Result auxGet;
+    Return_FindUpperLimit RFUL;
 
-//     int cont_x=0 ,k=0;
-//     for(k=currentIndex ; k<FF_stringFromUser.size() ; k++ ){
-//             if(((isdigit(FF_stringFromUser[k]))||(FF_stringFromUser[k]=='+')||(FF_stringFromUser[k]=='-'))&& (!findX)){
-//                 return currentIndex;
-//             }
-//             if((isalpha(FF_stringFromUser[k]))){
-//                 findX=true;
-//                 cont_x++;
-//                 RFUL=FindUpperLimit(k);
-//                 if(RFUL.IfsingExponetiation){   
-//                     if(RFUL.value>RFUL.NewIndex){swap( RFUL.value ,RFUL.NewIndex );}
-//                     expoent= GetValue.Get(FF_stringFromUser, RFUL.value, RFUL.NewIndex);
-//                     expoent.VALUE==0?expoent.VALUE=1:expoent.VALUE;
-//                 }else{
+    int cont_x=0 ,k=0;
+    for(k=currentIndex ; k<FF_stringFromUser.size() ; k++ ){
+            if(FF_stringFromUser[k]=='/'){find_Division=true;}
+            if(((FF_stringFromUser[k]=='+')||(FF_stringFromUser[k]=='-')) && (!findX)){
+                cout<<"| Achive plus or minus sing and out !!!"<<endl;
+                cout<<"|______________________________________||"<<endl;
+                return currentIndex-1;
+
+            }
+            if((isalpha(FF_stringFromUser[k]))){
+                cout<<"| FF_stringFromUser["<<k<<"] :"<<FF_stringFromUser[k]<<endl;
+                findX=true;
+                if(find_Division){
+                    fator= GetValue.Get(FF_stringFromUser,FindLowerLimit(k),(k-1));
+                    cout<<"| fator.isZero :"<<fator.isZero<<endl;
+                    cout<<"| fator.VALUE :"<<fator.VALUE<<endl;
+                    if(fator.isZero){fator.VALUE=0;}else{fator.VALUE=fator.VALUE==0?1:fator.VALUE;}
+                    firstTime=false;
+
+                }
+                RFUL=FindUpperLimit(k);
+                cout<<"| findX :"<<findX <<endl;
+                cout<<"| cont_x :"<<cont_x <<endl;
+                cout<<"| RFUL.IfsingExponetiation :"<<RFUL.IfsingExponetiation <<endl;
+                cout<<"| RFUL.NewIndex :"<<RFUL.NewIndex <<endl;
+                cout<<"| RFUL.value :"<<RFUL.value <<endl;
+                if(RFUL.IfsingExponetiation){   
+                    if(RFUL.value>RFUL.NewIndex){swap( RFUL.value ,RFUL.NewIndex );}
+                    expoent= GetValue.Get(FF_stringFromUser, RFUL.value, RFUL.NewIndex);
+                    cout<<"| expoent.isZero :"<<expoent.isZero <<endl;
+                    cout<<"| expoent.VALUE :"<<expoent.VALUE <<endl;
                     
-//                     auxGet=GetValue.Get(FF_stringFromUser,(k),RFUL.value);
-//                     if(auxGet.isZero){auxGet.VALUE=0;}else{auxGet.VALUE==0?1:auxGet.VALUE;}
-//                     fator.VALUE= (auxGet.VALUE==0?1:auxGet.VALUE) * fator.VALUE;
-//                     expoent.VALUE=1;
-//                 }
-                
-//                     FirstIndentied[currentAux].X_Factor*=fator.VALUE;
-//                     FirstIndentied[currentAux].X_Expoent+=cont_x;
-//                     cont_x=0;
-//             }
-//     }
+                    if(!find_Division){fator.VALUE=1;}
 
-//     return k;
-// }
+                }else{
+                    
+                    auxGet=GetValue.Get(FF_stringFromUser,(k),RFUL.value);
+                    cout<<"| auxGet.isZero :"<<auxGet.isZero <<endl;
+                    cout<<"| auxGet.VALUE :"<<auxGet.VALUE <<endl;
+                    
+                    if(auxGet.isZero){auxGet.VALUE=0;}else{auxGet.VALUE=(auxGet.VALUE==0?1:auxGet.VALUE);}
+                    firstTime==true?fator.VALUE= auxGet.VALUE:fator.VALUE*= auxGet.VALUE;
+                    firstTime=false;
+                    expoent.VALUE=1;
+                }
+                cout<<"| fator.VALUE: "<<fator.VALUE <<endl;
+                cout<<"| expoent.VALUE: "<<expoent.VALUE <<endl;
+                cout<<"| before FirstIndentied[currentAux].X_Expoent : "<< FirstIndentied[currentAux].X_Expoent <<endl;
+
+                if(!(expoent.VALUE==0)){
+                    find_Division?FirstIndentied[currentAux].X_Factor/=fator.VALUE :FirstIndentied[currentAux].X_Factor*=fator.VALUE;
+                    find_Division?FirstIndentied[currentAux].X_Expoent-=expoent.VALUE:FirstIndentied[currentAux].X_Expoent+=expoent.VALUE;
+            
+                }
+                cout<<"|  FirstIndentied[currentAux].X_Factor :"<< FirstIndentied[currentAux].X_Factor <<endl;
+                cout<<"| FirstIndentied[currentAux].X_Expoent :"<< FirstIndentied[currentAux].X_Expoent <<endl;
+            
+            }
+    }
+    cout<<"| FF_stringFromUser["<<k<<"] :"<<FF_stringFromUser[k] <<endl;
+    cout<<"|________________________________________||"<<endl;
+    return k;
+}
 
 X_Type* FormatFunction::UserFunction(){
 
@@ -227,7 +274,7 @@ double FormatFunction::FindConstantTerm(){
     Result GetConstanteTerm;
     string sum, auxSum;
     if(FF_stringFromUser.empty()){
-        cout<<"Your string is empty!!"<<endl;
+        cout<<"| Your string is empty!!"<<endl;
         return 0;
     }else{
 
@@ -264,4 +311,9 @@ double FormatFunction::FindConstantTerm(){
     }
     return 0;
 
+}
+
+FormatFunction::~FormatFunction(){
+    delete [] My_Function;
+    delete [] FirstIndentied;
 }

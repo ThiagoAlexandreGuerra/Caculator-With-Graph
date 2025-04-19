@@ -14,6 +14,7 @@ class   OutPutTad{
         string QuadraticFunction_Delivery();
         string CubicFunction_Delivery();
 
+
     public:
         OutPutTad();
         ~OutPutTad();

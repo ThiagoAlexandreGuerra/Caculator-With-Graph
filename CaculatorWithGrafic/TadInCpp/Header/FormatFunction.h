@@ -35,6 +35,7 @@ private:
     void CountAmountOfX();
     void AlocationVector_FirstIndentied();
     void SetXIn_FirstIndentied();
+    int ifNextIsXToo(int currentIndex, int currentAux);
 public:
     FormatFunction();
     ~FormatFunction();
